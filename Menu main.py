@@ -15,7 +15,6 @@ from rsize_disp import Rsize
 class FaceApp:
     def __init__(self, root, path):
         self.path = path
-        #root = Toplevel(bg = "grey")
         root.title("Face recognition security and utilities.")
         root.iconbitmap('C:/Users/HWdeB/Documents/Python/source facerecogn/source code/faceR.ico')
         root.geometry("700x300")

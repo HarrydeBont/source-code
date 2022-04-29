@@ -4,7 +4,9 @@
 
 import pickle
 import os
-objtr_root = "D://Python"
+from directory_structure import root_dir
+
+objtr_root = root_dir()
 
 class objecter:
     """

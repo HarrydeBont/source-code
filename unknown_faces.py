@@ -2,7 +2,8 @@
 
 import cv2
 import os
-unknown_root = "D://Python"
+from directory_structure import root_dir
+unknown_root = root_dir()
 
 class store_unknown:
     def __init__(self, unknown_dir, unknown_file):

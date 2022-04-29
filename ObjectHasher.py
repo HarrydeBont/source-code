@@ -6,6 +6,11 @@ from objectR_handler import objecter
 import os
 import imagehash
 from PIL import Image
+from directory_structure import root_dir
+
+main_root_dir = root_dir()
+image_path = "images"
+image_dir = os.path.join(main_root_dir, image_path)
 
 class ObjectHash():
     def __init__(self, terminalmessage = False):
@@ -20,9 +25,9 @@ class ObjectHash():
         """
         count_files = 0
         current_hash = []
-        if self.terminalmessage: print(os.listdir('images//'))
-        for filename in os.listdir('images//'):
-            current_hash.append(imagehash.average_hash(Image.open('images//' + filename)))
+        if self.terminalmessage: print(os.listdir(image_dir))
+        for filename in os.listdir(image_dir):
+            current_hash.append(imagehash.average_hash(Image.open(image_dir+ "//" + filename)))
             if self.terminalmessage: print('Calculating hash, file nr. : ', count_files+1)
             count_files += 1
 
