@@ -5,8 +5,8 @@
 # 2) Hashing_images and Hash_calculate in one Class done V 19-04-2022 (ObjectHasher)
 # 3) Make a Register library-routine  done V 25-04-2022 (F_rec_register)
 # 4) Save images of non-recognized faces done V 29-04-2022 (Unknown_faces)
-# 5) Use saved image as training input
-# 6) Create multiple photo-entries for one person
+# 5) Use saved image as training input V 29-04-2022 (works without changes)
+# 6) Create multiple photo-entries for one person V 29-04-2022 (undoubling)
 # 7) Move face images to root directory as well (D:/Python)
 # 8) Create user interace
 # 9) Make executable
@@ -15,6 +15,7 @@ import cv2
 import datetime
 from F_rec_register import register_faceR
 from unknown_faces import store_unknown
+from undoubling import undouble
 
 Uface = store_unknown('Unknown faces', 'Who is this') # Store Unknown faces for proof or addition to library
 
@@ -41,6 +42,7 @@ while True:
     face_locations, face_names = sfr.detect_known_faces(frame)
     for face_loc, name in zip(face_locations, face_names):
         y1, x2, y2, x1 = face_loc[0], face_loc[1], face_loc[2], face_loc[3]
+        name = undouble(name)
         if name != 'Unknown':                                                                                       
             cv2.putText(frame, name,(x1, y2 + 25), cv2.FONT_HERSHEY_DUPLEX, 1, (200, 200, 200), 2)
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 200), 4) 
