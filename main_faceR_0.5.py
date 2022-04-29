@@ -8,8 +8,9 @@
 # 5) Use saved image as training input done V 29-04-2022 (works without changes)
 # 6) Create multiple photo-entries for one person done V 29-04-2022 (undoubling)
 # 7) Move face images to root directory as well (D:/Python) done V 29-04-2022 (directory_structure)
-# 8) Create user interace
-# 9) Make executable
+# 8) Make a routine for copying unknown faced to images (supervised so need to use UI)
+# 9) Create user interace
+# 10) Make executable
 
 from tkinter import image_types
 import cv2
