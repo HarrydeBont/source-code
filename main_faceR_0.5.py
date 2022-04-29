@@ -5,17 +5,24 @@
 # 2) Hashing_images and Hash_calculate in one Class done V 19-04-2022 (ObjectHasher)
 # 3) Make a Register library-routine  done V 25-04-2022 (F_rec_register)
 # 4) Save images of non-recognized faces done V 29-04-2022 (Unknown_faces)
-# 5) Use saved image as training input V 29-04-2022 (works without changes)
-# 6) Create multiple photo-entries for one person V 29-04-2022 (undoubling)
-# 7) Move face images to root directory as well (D:/Python)
+# 5) Use saved image as training input done V 29-04-2022 (works without changes)
+# 6) Create multiple photo-entries for one person done V 29-04-2022 (undoubling)
+# 7) Move face images to root directory as well (D:/Python) done V 29-04-2022 (directory_structure)
 # 8) Create user interace
 # 9) Make executable
 
+from tkinter import image_types
 import cv2
 import datetime
 from F_rec_register import register_faceR
 from unknown_faces import store_unknown
 from undoubling import undouble
+from directory_structure import root_dir
+import os
+
+main_root_dir = root_dir()
+image_path = "images"
+image_dir = os.path.join(main_root_dir, image_path)
 
 Uface = store_unknown('Unknown faces', 'Who is this') # Store Unknown faces for proof or addition to library
 
@@ -27,7 +34,7 @@ from simple_facerec import SimpleFacerec
 
 # Encode faces from a folder
 sfr = SimpleFacerec()
-sfr.load_encoding_images("images/")
+sfr.load_encoding_images(image_dir)
 
 # Load Camera
 cap = cv2.VideoCapture(2) # Center Cam
