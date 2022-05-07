@@ -1,28 +1,32 @@
 # Module to be integrated in main_facR
 # it resizes images for the userinterface
-# import tkinter as tk
-from PIL import ImageTk, Image
+import cv2
+from PIL import Image, ImageTk
 
 # Classify
 class Rsize:
     def __init__(self):
-        print("doing nothing for now..")
         pass
 
-    def load_img(self, image_path):
+    def load_img(self, image_path, size):
         self.image_path = image_path
         #Open a New Image
-        self.image= Image.open(self.image_path)
-        width, height = self.image.size
+        # CV2 portion
+        self.image= cv2.imread(self.image_path) # CV2 image array
+        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        height, width = self.image.shape[:2]
+
 
         # calculate ratio for desired resize
-        ratio = 100 / width
+        ratio = size / width
         rwidth = int(ratio*width)
         rheight = int(ratio*height)
 
         #Resize Image using resize function
-        self.resized_image= self.image.resize((rwidth, rheight), Image.ANTIALIAS)
+        self.resized_image= cv2.resize(self.image, (rwidth, rheight), interpolation = cv2.INTER_AREA)
 
-        # Convert the image into PhotoImage
-        img = ImageTk.PhotoImage(self.resized_image)
-        return(img)
+        # Convert the CV2 image into PhotoImage Tkinter
+        img = self.resized_image
+        img = Image.fromarray(img)
+        imgtk = ImageTk.PhotoImage(image=img)
+        return(imgtk)
