@@ -2,8 +2,8 @@
 
 import cv2
 import os
-from directory_structure import root_dir
-unknown_root = root_dir()
+from directory_structure import dir_struc
+unknown_root = dir_struc()
 
 class store_unknown:
     def __init__(self, unknown_dir, unknown_file):
@@ -12,7 +12,7 @@ class store_unknown:
         self.unknown_counter = 0
         self.unknown_file:str = unknown_file + "-" + str(self.unknown_counter) +  ".jpg"
         self.unknown_counter_old = 0
-        self.unknown_dir:str = unknown_root + "//" + self.unknown_dir
+        self.unknown_dir:str = unknown_root.root_dir() + "//" + self.unknown_dir
         isDir = os.path.isdir(self.unknown_dir)
         
         if isDir:

@@ -23,12 +23,12 @@ def main():
     from F_rec_register import register_faceR
     from unknown_faces import store_unknown
     from undoubling import undouble
-    from directory_structure import root_dir
+    from directory_structure import dir_struc
     import os
 
-    main_root_dir = root_dir()
+    main_root_dir = dir_struc()
     image_path = "images"
-    image_dir = os.path.join(main_root_dir, image_path)
+    image_dir = os.path.join(main_root_dir.root_dir(), image_path)
 
     Uface = store_unknown('Unknown faces', 'Who is this') # Store Unknown faces for proof or addition to library
 
@@ -62,7 +62,7 @@ def main():
             else:
                 # No rectangle on a unknown face not to obscure use for later training
                 cv2.putText(frame, name,(x1, y2 + 125), cv2.FONT_HERSHEY_DUPLEX, 1, (200, 200, 200), 2)
-                Uface.save_frame(frame) # Faulty code no unknown faces is saved to file..... check unknown_faces routine
+                Uface.save_frame(frame) # code unknown faces is saved to file.
             RFR.register(name)
                 
 

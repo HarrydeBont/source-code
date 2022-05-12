@@ -1,16 +1,17 @@
 # This program is an attempt to program a FACE RECOGNITION ready for home automation
 # Author: Harry de Bont 2022
 # Version history / To do next: 
-# 1) Re-load previously trained model when no pictures have been added. done V 15-4-2022
+# 1) Re-load previously trained model when no pictures have been added. done V 15-4-2022 (Objjecthasher)
 # 2) Hashing_images and Hash_calculate in one Class done V 19-04-2022 (ObjectHasher)
 # 3) Make a Register library-routine  done V 25-04-2022 (F_rec_register)
 # 4) Save images of non-recognized faces done V 29-04-2022 (Unknown_faces)
 # 5) Use saved image as training input done V 29-04-2022 (works without changes)
 # 6) Create multiple photo-entries for one person done V 29-04-2022 (undoubling)
 # 7) Move face images to root directory as well (D:/Python) done V 29-04-2022 (directory_structure)
-# 8) Make a routine for copying unknown faced to images (supervised so need to use UI)
-# 9) Create user interace
-# 10) Make executable
+# 8) Use the stored face-registration after re-start. done V 09-05-2022 (F_rec_register)
+# 9) Make a routine for copying unknown faced to images (supervised so need to use UI)
+# 10) Create user interace
+# 11) Make executable
 
 from tkinter import image_types
 import cv2
@@ -18,14 +19,16 @@ import datetime
 from F_rec_register import register_faceR
 from unknown_faces import store_unknown
 from undoubling import undouble
-from directory_structure import root_dir
+from directory_structure import dir_struc
 import os
 
-main_root_dir = root_dir()
+main_root_dir = dir_struc()
 image_path = "images"
-image_dir = os.path.join(main_root_dir, image_path)
+image_dir = str(main_root_dir.list_faces())
+print(image_dir)
+print("-08052022-")
 
-Uface = store_unknown('Unknown faces', 'Who is this') # Store Unknown faces for proof or addition to library
+Uface = store_unknown('Unknown faces', 'rename me please') # Store Unknown faces for proof or addition to library
 
 print("(Re)written by Harry de Bont. ", end= '')
 print("2022")

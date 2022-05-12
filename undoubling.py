@@ -10,8 +10,8 @@ def undouble(name):
     # print(double)
     if (double>0):
         undoubled_name = name[:double]
-        print("*") # let the user know there is a doubling endoced
+        #print("*", name) # let the user know there is a doubling endoced
     else:
         undoubled_name = name
-        print("-") # let the user know the original is used
+        #print("-", name) # let the user know the original is used
     return(undoubled_name)

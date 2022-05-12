@@ -1,4 +1,5 @@
 import face_recognition
+import directory_structure
 import cv2
 import os
 import glob
@@ -31,10 +32,10 @@ class SimpleFacerec:
         :return:
         """
         # Load Images
-        images_path = glob.glob(os.path.join(images_path, "*.*"))
-
-        print("{} encoding images found.".format(len(images_path)))
-        if not(self.MyObjHash.checkImage()): # When False retrain the model
+        dir_images = directory_structure.dir_struc()
+        
+        print("{} stored faces found.".format(dir_images.count_faces()))
+        if not(self.MyObjHash.checkImage()): # When False re-train the model
             print("Re-training the model.")
             # Store image encoding and names
             for img_path in images_path:
@@ -57,14 +58,14 @@ class SimpleFacerec:
             self.trained_faces.write_model(self.known_face_encodings)
             self.trained_names.write_model(self.known_face_names)
             # print("Trained model: ", self.known_face_encodings)
-            print("Encoding images trained and saved.")
+            print("Neural net of images trained and saved.")
             # Write a new image hash since the images directory has been changed
             self.new_hash.write_model(self.MyObjHash.CalcImageHash())
 
         else:
             self.known_face_encodings = self.trained_faces.read_model()
             self.known_face_names = self.trained_names.read_model()
-            print("Encoding images re-loaded.")
+            print("Neural net of images is re-loaded.")
 
 
     def detect_known_faces(self, frame):

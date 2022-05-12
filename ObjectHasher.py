@@ -6,11 +6,11 @@ from objectR_handler import objecter
 import os
 import imagehash
 from PIL import Image
-from directory_structure import root_dir
+from directory_structure import dir_struc
 
-main_root_dir = root_dir()
+main_root_dir = dir_struc()
 image_path = "images"
-image_dir = os.path.join(main_root_dir, image_path)
+image_dir = os.path.join(main_root_dir.root_dir(), image_path)
 
 class ObjectHash():
     def __init__(self, terminalmessage = False):

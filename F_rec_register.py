@@ -1,9 +1,11 @@
 # This routine registers the date and time of faces recognized by the main program.
-# By Harry de Bont, April 2022
+# By Harry de Bont, April, May 2022
 
+import os
 import datetime
 import numpy as np
 from objectR_handler import objecter
+
 
 class register_faceR():
     """
@@ -11,11 +13,21 @@ class register_faceR():
     Two functions: registryWrite (save registration to file) and register(save registration to memory)
     """
     def __init__(self):
-        self.reg_names = [] # 1D array of names recognized (row index for timestamps )
-        self.reg_times = [] # 1D array of times when something has occured (column index for timestamps)
-        self.timestamps = [] # 2D array :: Rows are names / columns are timestamps
-        self.registration = []
         self.registry = objecter('FaceR_registry', 'registry' )
+        # In case the registry already exist
+        if self.registry.verify_registry():
+            self.registration = self.registry.read_model()
+            self.reg_names = self.registration[1].tolist() # 1D array of names recognized (row index for timestamps )
+            self.reg_times = self.registration[3].tolist() # 1D array of times when something has occured (column index for timestamps)
+            self.timestamps = self.registration[5].tolist() # 2D array :: Rows are names / columns are timestamps
+        else:
+            self.reg_names = [] # 1D array of names recognized (row index for timestamps )
+            self.reg_times = [] # 1D array of times when something has occured (column index for timestamps)
+            self.timestamps = [] # 2D array :: Rows are names / columns are timestamps
+            self.registration = []
+        # convert a numpy array to Python list
+        # a = np.array([1, 2]) 
+        # a.tolist()
 
 
     def registryWrite(self, terminal_message = False):
