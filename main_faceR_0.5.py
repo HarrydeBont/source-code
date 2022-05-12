@@ -9,8 +9,8 @@
 # 6) Create multiple photo-entries for one person done V 29-04-2022 (undoubling)
 # 7) Move face images to root directory as well (D:/Python) done V 29-04-2022 (directory_structure)
 # 8) Use the stored face-registration after re-start. done V 09-05-2022 (F_rec_register)
-# 9) Make a routine for copying unknown faced to images (supervised so need to use UI)
-# 10) Create user interace
+# 9) Create user interace. busy (re-use Custom Tkinter master)
+# 10) Make a routine for copying unknown faced to images (supervised so need to use UI)
 # 11) Make executable
 
 from tkinter import image_types
@@ -25,8 +25,8 @@ import os
 main_root_dir = dir_struc()
 image_path = "images"
 image_dir = str(main_root_dir.list_faces())
-print(image_dir)
-print("-08052022-")
+# print(image_dir)
+# print("-08052022-")
 
 Uface = store_unknown('Unknown faces', 'rename me please') # Store Unknown faces for proof or addition to library
 
