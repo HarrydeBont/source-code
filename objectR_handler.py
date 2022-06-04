@@ -13,19 +13,21 @@ class objecter:
     This class serializes objects, reads or saves them to file.
     Two functions: write_model (to file), read_model (from file)
     """
-    def __init__(self, objtr_dir, objtr_file):
-            self.objtr_dir:str = objtr_root.root_dir() + "//" + objtr_dir
+    def __init__(self, objtr_dir, objtr_file, terminalmessage = True):
+            self.objtr_dir:str = objtr_root.root_dir() + '\\' + objtr_dir
             isDir = os.path.isdir(self.objtr_dir)
-            self.objtr = self.objtr_dir + "//" + objtr_file + ".OBJTR"
+            self.objtr = self.objtr_dir + "\\" + objtr_file + ".OBJTR"
             if isDir:
-                print("object -"+ self.objtr_dir + " - directory validated..")
+                msg = "object -"+ self.objtr_dir + " - directory validated.."
+                if terminalmessage: print(msg)
             else:
-                print(self.objtr_dir, " -object path doesn't exist. Create first to proceed.")
+                msg = self.objtr_dir, " -object path doesn't exist. Create first to proceed."
+                if terminalmessage: print(msg)
                 ask_permission = input("Create directory [Y/N]: ?").upper()
                 if ask_permission == "Y":
                     os.mkdir(self.objtr_dir)
                 else:
-                    print("Program exit, by user request.")
+                    if terminalmessage: print("Program exit, by user request.")
                     quit()
 
 
@@ -33,7 +35,8 @@ class objecter:
         with open(self.objtr, 'wb') as my_file: # write bytes to preserve the data
             pickle.dump(model_object, my_file)
             my_file.close()
-            if terminalmessage: print("Object -" + self.objtr + "- saved.")
+            msg = "Object -" + self.objtr + "- saved."
+            if terminalmessage: print(msg)
 
     def read_model(self, terminalmessage = False):
         # Check whether the 
@@ -44,12 +47,14 @@ class objecter:
             with open(self.objtr, 'rb') as my_file:
                 my_object = pickle.load(my_file)
                 my_file.close()
-                if terminalmessage: print("Retreiving -" + self.objtr + "- object.")
+                msg = "Retreiving -" + self.objtr + "- object."
+                if terminalmessage: print(msg)
                 return(my_object)
         else:
-            print('Program exit file', str(self.objtr), ' does not exist.')
+            msg = 'Program exit file', str(self.objtr), ' does not exist.'
+            if terminalmessage: print(msg)
             quit()
     
-    def verify_registry(self):
+    def verify_file(self):
         isFile = os.path.isfile(self.objtr)
         return(isFile)

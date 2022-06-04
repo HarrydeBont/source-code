@@ -1,13 +1,15 @@
+# from: https://github.com/tanzeyl/facial-recognition/blob/main/simple_facerec.py
 import face_recognition
 import directory_structure
 import cv2
 import os
-import glob
 import numpy as np
 from objectR_handler import objecter
-from ObjectHasher import ObjectHash
+from ObjectHasher import My_msg, ObjectHash
 from PIL import Image
+from termess import terMess
 
+My_msg = terMess()
 
 class SimpleFacerec:
     def __init__(self):
@@ -33,16 +35,25 @@ class SimpleFacerec:
         """
         # Load Images
         dir_images = directory_structure.dir_struc()
+        msg = "{} stored face images found.".format(dir_images.count_faces())
+        My_msg.tprint(msg)            
+        if dir_images.count_faces() == 0:
+            msg = "Make sure to store at least one face image in the image directory."
+            My_msg.tprint(msg)
+            msg = "Ending program."
+            My_msg.tprint(msg)        
+            quit()
         
-        print("{} stored faces found.".format(dir_images.count_faces()))
-        if not(self.MyObjHash.checkImage()): # When False re-train the model
-            print("Re-training the model.")
+        if not(self.MyObjHash.checkImage()): # When images have changed re-train the model
+            My_msg.tprint("Re-training the model.")
             # Store image encoding and names
             for img_path in images_path:
                 img = cv2.imread(img_path)
-                img_check = Image.fromarray(img)              # check if color coding is RGB or BGR
                 print(img_path)
-                print(img_check.mode)
+                #img = Image.open(img_path)
+                # img_check = Image.fromarray(img)              # check if color coding is RGB or BGR
+                # My_msg.tprint(img_path)
+                # My_msg.tprint(img.mode)
                 rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
                 # Get the filename only from the initial file path.
@@ -58,14 +69,14 @@ class SimpleFacerec:
             self.trained_faces.write_model(self.known_face_encodings)
             self.trained_names.write_model(self.known_face_names)
             # print("Trained model: ", self.known_face_encodings)
-            print("Neural net of images trained and saved.")
+            My_msg.tprint("Neural net of images trained and saved.")
             # Write a new image hash since the images directory has been changed
             self.new_hash.write_model(self.MyObjHash.CalcImageHash())
 
         else:
             self.known_face_encodings = self.trained_faces.read_model()
             self.known_face_names = self.trained_names.read_model()
-            print("Neural net of images is re-loaded.")
+            My_msg.tprint("Neural net of images is re-loaded.")
 
 
     def detect_known_faces(self, frame):
@@ -73,11 +84,12 @@ class SimpleFacerec:
         Find all the faces and face encodings in the current frame of video
         Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
         """
+
         small_frame = cv2.resize(frame, (0, 0), fx=self.frame_resizing, fy=self.frame_resizing)
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
         face_locations = face_recognition.face_locations(rgb_small_frame)
         face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
-
+    
         face_names = []
         for face_encoding in face_encodings:
             # See if the face is a match for the known face(s)

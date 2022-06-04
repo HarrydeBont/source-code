@@ -7,11 +7,8 @@ def undouble(name):
 
     """
     double = name.find("__")
-    # print(double)
     if (double>0):
         undoubled_name = name[:double]
-        #print("*", name) # let the user know there is a doubling endoced
     else:
         undoubled_name = name
-        #print("-", name) # let the user know the original is used
     return(undoubled_name)

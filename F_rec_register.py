@@ -1,10 +1,13 @@
 # This routine registers the date and time of faces recognized by the main program.
 # By Harry de Bont, April, May 2022
 
-import os
+# import os
 import datetime
 import numpy as np
 from objectR_handler import objecter
+from termess import terMess
+
+My_msg = terMess()
 
 
 class register_faceR():
@@ -15,7 +18,7 @@ class register_faceR():
     def __init__(self):
         self.registry = objecter('FaceR_registry', 'registry' )
         # In case the registry already exist
-        if self.registry.verify_registry():
+        if self.registry.verify_file():
             self.registration = self.registry.read_model()
             self.reg_names = self.registration[1].tolist() # 1D array of names recognized (row index for timestamps )
             self.reg_times = self.registration[3].tolist() # 1D array of times when something has occured (column index for timestamps)
@@ -42,11 +45,16 @@ class register_faceR():
         self.registration = ['List of names. ', self.reg_names, 'Timeslots. ', self.reg_times, 'Timestamps. ', self.timestamps]
         self.registry.write_model(self.registration, True)
         if terminal_message:
-            print('Registry finshed at: ', str(datetime.datetime.now()))
-            print('Number of Timeslots registered: ', len(self.reg_times))
-            print('Number of faces seen: ', len(self.reg_names))
-            print('Dimension of the registry: ', self.timestamps.shape)
-            print(self.registry.read_model())
+            msg = 'Registry finshed at: ' +  str(datetime.datetime.now())
+            My_msg.tprint(msg)
+            msg = 'Number of Timeslots registered: '+ str(len(self.reg_times))
+            My_msg.tprint(msg)
+            msg = 'Number of faces seen: ' +str(len(self.reg_names))
+            My_msg.tprint(msg)
+            msg = 'Dimension of the registry: ' + str(self.timestamps.shape)
+            My_msg.tprint(msg)
+            msg = str(self.registry.read_model())
+            My_msg.tprint(msg)
 
 
 
@@ -69,9 +77,3 @@ class register_faceR():
         for i in range(len(self.reg_names)): 
                 if (i == row_index): self.timestamps[i].append(True) # this face is recognized @ this timestamp
                 if (i != row_index): self.timestamps[i].append(False) # this face is not recognized @ this timestamp
-
-
-        if terminal_message:
-            print(self.reg_names)
-            print(self.timestamps)
-        

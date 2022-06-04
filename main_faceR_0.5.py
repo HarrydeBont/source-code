@@ -9,39 +9,59 @@
 # 6) Create multiple photo-entries for one person done V 29-04-2022 (undoubling)
 # 7) Move face images to root directory as well (D:/Python) done V 29-04-2022 (directory_structure)
 # 8) Use the stored face-registration after re-start. done V 09-05-2022 (F_rec_register)
-# 9) Create user interace. busy (re-use Custom Tkinter master)
+# 9) Create terminal message routine to be used in all modules. Terminal messages can be shown either in UI or in the terminal window.
+#       Done: main_face_0.5, termess, objectR_handler, ObjectHasher, simple_facerecF_rec_register, directory_structure, unknown_faces, undoubling, removed unnecessary terminalmessage var 
+# 10) Create objecter configuration file. done V 12-05-2022 (temp code in main_face_05)
+# 9) Create user interace. busy (re-use Custom Tkinter master and create main_faceR)
 # 10) Make a routine for copying unknown faced to images (supervised so need to use UI)
 # 11) Make executable
 
 from tkinter import image_types
 import cv2
-import datetime
+from objectR_handler import objecter
+from simple_facerec import SimpleFacerec
 from F_rec_register import register_faceR
 from unknown_faces import store_unknown
+from termess import terMess
 from undoubling import undouble
 from directory_structure import dir_struc
-import os
+
+My_msg = terMess()
+faceR_config = objecter('config','FaceR_config')
+
+# writing config file
+# config_test = []
+# config_test.append('show_m')
+# show_m = 1 # 1 :: show messages 
+# config_test.append(show_m)
+
+# faceR_config.write_model(config_test, True)
+
+# Reading config file
+# config_test = faceR_config.read_model()
+# show_m = config_test[1]
 
 main_root_dir = dir_struc()
-image_path = "images"
-image_dir = str(main_root_dir.list_faces())
-# print(image_dir)
-# print("-08052022-")
+#image_path = "images"
+msg = str(main_root_dir.list_faces())
+image_path = main_root_dir.images_path()
+My_msg.tprint(msg)
 
 Uface = store_unknown('Unknown faces', 'rename me please') # Store Unknown faces for proof or addition to library
 
-print("(Re)written by Harry de Bont. ", end= '')
-print("2022")
-print("Face recognition starting. This will take a while, please be patient.")
-print("Using open_CV_version: ", cv2.__version__)
-from simple_facerec import SimpleFacerec
+My_msg.tprint("(Re)written by Harry de Bont. ")
+My_msg.tprint("2022")
+My_msg.tprint("Face recognition starting. This will take a while, please be patient.")
+My_msg.tprint(str("Using open_CV_version: "+cv2.__version__))
+
 
 # Encode faces from a folder
 sfr = SimpleFacerec()
-sfr.load_encoding_images(image_dir)
-
+#sfr.load_encoding_images(image_dir)
+sfr.load_encoding_images(image_path)
 # Load Camera
-cap = cv2.VideoCapture(2) # Center Cam
+#cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) # USB cam
+cap = cv2.VideoCapture(1, cv2.CAP_DSHOW) # Center Cam
 
 # Create Registration Face Recognition
 RFR = register_faceR()

@@ -4,6 +4,9 @@ import cv2
 import os
 from directory_structure import dir_struc
 unknown_root = dir_struc()
+from termess import terMess
+
+My_msg = terMess()
 
 class store_unknown:
     def __init__(self, unknown_dir, unknown_file):
@@ -16,14 +19,16 @@ class store_unknown:
         isDir = os.path.isdir(self.unknown_dir)
         
         if isDir:
-            print("object -"+ self.unknown_dir + " - path validated..")
+            msg = "object -"+ str(self.unknown_dir) + " - path validated.."
+            print(msg)
         else:
-            print(self.unknown_dir, " -file path doesn't exist. Create first to proceed.")
+            msg = str(self.unknown_dir) + " -file path doesn't exist. Create first to proceed."
+            print(msg)
             ask_permission = input("Create directory [Y/N]: ?").upper()
             if ask_permission == "Y":
                 os.mkdir(self.unknown_dir)
             else:
-                print("Program exit, by user request.")
+                My_msg.tprint("Program exit, by user request.")
                 quit()
     
     def save_frame(self, frame):

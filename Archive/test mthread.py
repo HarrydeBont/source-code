@@ -20,7 +20,7 @@ def print_square(num):
 
 if __name__ == "__main__":
 	# creating thread
-	t1 = threading.Thread(target=print_square, args=(10,))
+	t1 = threading.Thread(target=print_square, args=(100,))
 	t2 = threading.Thread(target=sleep_time, args=(2,))
 
 	# starting thread 1
