@@ -4,63 +4,8 @@
 # How to install dlib library for Python in Windows 10
 # https://medium.com/analytics-vidhya/how-to-install-dlib-library-for-python-in-windows-10-57348ba1117f
 # build image error 
-        # Building wheel for dlib (setup.py): finished with status 'error'
-        #8 22.76   error: subprocess-exited-with-error
-        #8 22.76   
-        #8 22.76   × python setup.py bdist_wheel did not run successfully.
-        #8 22.76   │ exit code: 1
-        #8 22.76   ╰─> [10 lines of output]
-        #8 22.76       running bdist_wheel
-        #8 22.76       running build
-        #8 22.76       running build_py
-        #8 22.76       package init file 'tools/python/dlib/__init__.py' not found (or not a regular file)
-        #8 22.76       warning: build_py: byte-compiling is disabled, skipping.
-        #8 22.76       
-        #8 22.76       running build_ext
-        #8 22.76       
         #8 22.76       ERROR: CMake must be installed to build dlib
-        #8 22.76       
-        #8 22.76       [end of output]
-        #8 22.76   
-        #8 22.76   note: This error originates from a subprocess, and is likely not a problem with pip.
-        #8 22.76   ERROR: Failed building wheel for dlib
-        #8 22.76   Running setup.py clean for dlib
-        #8 23.37   Building wheel for face-recognition-models (setup.py): started
-        #8 35.77   Building wheel for face-recognition-models (setup.py): finished with status 'done'
-        #8 35.99   Created wheel for face-recognition-models: filename=face_recognition_models-0.3.0-py2.py3-none-any.whl size=100566186 sha256=b6e2f5d8288476ed5e4fb89f864677a0681d755310cb18c8d052944646c95d52
-        #8 35.99   Stored in directory: /root/.cache/pip/wheels/b4/4b/8f/751e99d45f089bdf366a7d3e5066db3c2b84a62e4377f534d7
-        #8 35.99   Building wheel for ImageHash (setup.py): started
-        #8 36.68   Building wheel for ImageHash (setup.py): finished with status 'done'
-        #8 36.68   Created wheel for ImageHash: filename=ImageHash-4.2.1-py2.py3-none-any.whl size=295206 sha256=55878d5adc454b90d41f1a415bda1ef0b41066cd999501ba283dd70cd1237423
-        #8 36.68   Stored in directory: /root/.cache/pip/wheels/48/a1/7f/096c1269d6bf78d4768180602579b35a1e8cb1250bb4b40c74
-        #8 36.69 Successfully built face-recognition-models ImageHash
-        #8 36.69 Failed to build dlib
-        #8 36.90 Installing collected packages: face-recognition-models, dlib, cmake, six, pyparsing, Pillow, numpy, kiwisolver, fonttools, cycler, colorama, click, scipy, PyWavelets, python-dateutil, packaging, opencv-python, face-recognition, matplotlib, ImageHash
-        #8 37.75   Running setup.py install for dlib: started
-        #8 38.44   Running setup.py install for dlib: finished with status 'error'
-        #8 38.44   error: subprocess-exited-with-error
-        #8 38.44   
-        #8 38.44   × Running setup.py install for dlib did not run successfully.
-        #8 38.44   │ exit code: 1
-        #8 38.44   ╰─> [10 lines of output]
-        #8 38.44       running install
-        #8 38.44       running build
-        #8 38.44       running build_py
-        #8 38.44       package init file 'tools/python/dlib/__init__.py' not found (or not a regular file)
-        #8 38.44       warning: build_py: byte-compiling is disabled, skipping.
-        #8 38.44       
-        #8 38.44       running build_ext
-        #8 38.44       
-        #8 38.44       ERROR: CMake must be installed to build dlib
-        #8 38.44       
-        #8 38.44       [end of output]
-        #8 38.44   
-        #8 38.44   note: This error originates from a subprocess, and is likely not a problem with pip.
-        #8 38.44 error: legacy-install-failure
-        #8 38.44 
-        #8 38.44 × Encountered error while trying to install package.
-        #8 38.44 ╰─> dlib
-# Try follow https://packaging.python.org/en/latest/guides/packaging-namespace-packages/#native-namespace-packages
+       
 
 from ast import arg
 from pickle import FALSE
@@ -123,9 +68,9 @@ class App(customtkinter.CTk):
         # ============ Initializing multiprocessing ============
         # creating processes
         
-        self.p1 = multiprocessing.Process(target=main_faceR.faceR, args= (3,))
-        self.p2 = multiprocessing.Process(target=main_faceR.faceR, args= (0,))
-        self.p3 = multiprocessing.Process(target=main_faceR.faceR, args =(1,))
+        # self.p1 = multiprocessing.Process(target=main_faceR.faceR, args= (3,))
+        # self.p2 = multiprocessing.Process(target=main_faceR.faceR, args= (0,))
+        # self.p3 = multiprocessing.Process(target=main_faceR.faceR, args =(1,))
 
 
 
@@ -366,12 +311,12 @@ class App(customtkinter.CTk):
         #     self.p3.start()
         # except:
         #     print('something went wrong.. process p3')
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            main_faceR.faceR(1)
-            main_faceR.faceR(3)
-        #main_faceR.faceR()
-       
-
+        # Cameras = [0,1,2]
+        # with concurrent.futures.ProcessPoolExecutor() as e:
+        #     for camera in zip(Cameras, e.map(main_faceR.faceR, Cameras)):
+        #         print(f"Camera: {camera}")
+        main_faceR.faceR(0)
+             
     def read_messages(self):
         pullmsg = UImess.getmsg('ui')
         if pullmsg != None:

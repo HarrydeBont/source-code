@@ -13,13 +13,13 @@ class store_unknown:
         self.unknown_dir = unknown_dir
         
         self.unknown_counter = 0
-        self.unknown_file:str = unknown_file + "-" + str(self.unknown_counter) +  ".jpg"
         self.unknown_counter_old = 0
+        self.unknown_file:str = unknown_file + "_" + str(self.unknown_counter).zfill(3) +  ".jpg"
         self.unknown_dir:str = unknown_root.root_dir() + "//" + self.unknown_dir
         isDir = os.path.isdir(self.unknown_dir)
         
         if isDir:
-            msg = "object -"+ str(self.unknown_dir) + " - path validated.."
+            msg = f"object - {str(self.unknown_dir)} - path validated.."
             print(msg)
         else:
             msg = str(self.unknown_dir) + " -file path doesn't exist. Create first to proceed."
@@ -33,7 +33,7 @@ class store_unknown:
     
     def save_frame(self, frame):
         self.frame = frame
-        self.unknown_file = self.unknown_file.replace(str(self.unknown_counter_old),str(self.unknown_counter))
+        self.unknown_file = self.unknown_file.replace(str(self.unknown_counter_old).zfill(3), str(self.unknown_counter).zfill(3))
         self.unknown_counter_old = self.unknown_counter
         self.unknown_counter += 1
         self.unknown_path = os.path.join(self.unknown_dir, self.unknown_file)

@@ -7,11 +7,18 @@ class dir_struc:
     def __init__(self):
         self.main_root_dir = self.root_dir()
         image_path = "images"
-        unknowns_path = "Unknown_faces"
-        self.unknown_dir = os.path.join(self.main_root_dir, unknowns_path)
+
         self.image_dir = os.path.join(self.main_root_dir, image_path)
         
-        self.image_dir = os.path.join(self.main_root_dir, image_path)
+        unknowns_path = "Unknown_faces"
+        self.unknown_dir = os.path.join(self.main_root_dir, unknowns_path)
+
+    def unknown_path(self):
+        return(self.unknown_dir)
+    
+    def unknown_type(self):
+        return("*.jpg")
+
 
     def images_path(self):
         images_path = glob.glob(os.path.join(self.image_dir, "*.*"))
@@ -39,6 +46,13 @@ class dir_struc:
             if os.path.isfile(os.path.join(path,x)):
                 count = count + 1
         return(count)
+        
+    def list_ufaces(self):
+        """ 
+            Returns the unknown faces from the -unknown faces/- directory.
+        """
+        LSUF = os.listdir(self.unknown_dir)
+        return(LSUF)
 
     def count_unknowns(self):
         """ 
@@ -50,4 +64,12 @@ class dir_struc:
             if os.path.isfile(os.path.join(path,x)):
                 count = count + 1
         return(count)
+
+    def img_path(self):
+            img_path = self.image_dir
+            return(img_path)
+
+    def unknown_img_path(self):
+        pathu = self.unknown_dir
+        return(pathu)
 
