@@ -148,10 +148,10 @@ def find(name):
     uindex = Unknown_faces.index(find_img)
     return(uindex)
 
-show()
-# next()
-# next()
-# next()
+# show()
+# # next()
+# # next()
+# # next()
 
 # rename('Harry de Bont_007')
 # copy()

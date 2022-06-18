@@ -4,7 +4,8 @@
 # How to install dlib library for Python in Windows 10
 # https://medium.com/analytics-vidhya/how-to-install-dlib-library-for-python-in-windows-10-57348ba1117f
 # build image error 
-        #8 22.76       ERROR: CMake must be installed to build dlib
+#        #8 22.76       ERROR: CMake must be installed to build dlib - Solved
+# 18-06-2022: Create dynamic menu faceR_menu_dyn.py
        
 
 from ast import arg
@@ -24,6 +25,8 @@ from objectR_handler import objecter
 from messageBroker import mess_broker
 from list_cv2_ports import list_ports
 from directory_structure import dir_struc
+import handle_ufaces
+
 
 cu = dir_struc()
 nu = cu.count_unknowns()
@@ -111,7 +114,7 @@ class App(customtkinter.CTk):
         self.button_2 = customtkinter.CTkButton(master=self.frame_left,
                                                 text="Unknown Faces",
                                                 fg_color=("gray75", "gray30"),  # <- custom tuple-color
-                                                command=self.button_event)
+                                                command=self.uf_button_event)
         self.button_2.grid(row=3, column=0, pady=10, padx=20)
 
         self.button_3 = customtkinter.CTkButton(master=self.frame_left,
@@ -294,6 +297,11 @@ class App(customtkinter.CTk):
         self.label_info_1.config(text=x)
         print("Button pressed")
 
+    def uf_button_event(self):
+            print("Button uf pressed")
+            handle_ufaces.show()
+            
+
     def start_faceR_event(self):
         print("Start Face Recognition")
         #self.button_1.configure(state=tkinter.DISABLED, text="---")
@@ -315,7 +323,7 @@ class App(customtkinter.CTk):
         # with concurrent.futures.ProcessPoolExecutor() as e:
         #     for camera in zip(Cameras, e.map(main_faceR.faceR, Cameras)):
         #         print(f"Camera: {camera}")
-        main_faceR.faceR(0)
+        main_faceR.faceR(1)
              
     def read_messages(self):
         pullmsg = UImess.getmsg('ui')
